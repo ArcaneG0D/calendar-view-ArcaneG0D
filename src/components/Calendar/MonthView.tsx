@@ -19,24 +19,30 @@ export const MonthView: React.FC<Props> = ({ monthDate, events, onDayClick, onEv
     arr.push(ev)
     eventsByDay.set(key, arr)
   })
+
   return (
-    <div className="grid grid-cols-7 gap-1">
-      {grid.map((d) => {
-        const key = d.toDateString()
-        const dayEvents = eventsByDay.get(key) ?? []
-        const otherMonth = d.getMonth() !== monthDate.getMonth()
-        return (
-          <CalendarCell
-            key={key}
-            date={d}
-            events={dayEvents}
-            isToday={isToday(d)}
-            isOtherMonth={otherMonth}
-            onClick={onDayClick}
-            onEventClick={onEventClick}
-          />
-        )
-      })}
+    <div>
+      <div className="grid grid-cols-7 text-xs text-neutral-500 mb-2">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div className="grid grid-cols-7 gap-1" role="grid" aria-label="Month view calendar">
+        {grid.map((d) => {
+          const key = d.toDateString()
+          const dayEvents = eventsByDay.get(key) ?? []
+          const otherMonth = d.getMonth() !== monthDate.getMonth()
+          return (
+            <CalendarCell
+              key={key}
+              date={d}
+              events={dayEvents}
+              isToday={isToday(d)}
+              isOtherMonth={otherMonth}
+              onClick={onDayClick}
+              onEventClick={onEventClick}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

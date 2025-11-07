@@ -17,9 +17,9 @@ export const CalendarCell: React.FC<Props> = ({ date, events, isToday, isOtherMo
       role="button"
       tabIndex={0}
       aria-label={`${date.toDateString()}. ${events.length} events.`}
-      onClick={() => onClick(date)}
-      onKeyDown={(e) => { if (e.key === 'Enter') onClick(date) }}
+      onDoubleClick={() => onClick(date)}
       className={`border border-neutral-200 h-32 p-2 hover:bg-neutral-50 transition-colors cursor-pointer ${isOtherMonth ? 'text-neutral-400' : 'text-neutral-900'}`}
+      data-date={date.toDateString()}
     >
       <div className="flex justify-between items-start mb-1">
         <span className="text-sm font-medium">{dayNumber}</span>
@@ -31,13 +31,24 @@ export const CalendarCell: React.FC<Props> = ({ date, events, isToday, isOtherMo
             key={e.id}
             className="text-xs px-2 py-1 rounded truncate"
             style={{ backgroundColor: e.color }}
+            onClick={(ev) => { ev.stopPropagation() }}
             onDoubleClick={(ev) => { ev.stopPropagation(); onEventClick(e) }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(ev) => { if (ev.key === 'Enter') { ev.stopPropagation(); onEventClick(e) } }}
+            aria-label={`${e.title} ${e.startDate.toLocaleTimeString()} - ${e.endDate.toLocaleTimeString()}`}
           >
             {e.title}
           </div>
         ))}
         {events.length > 3 && (
-          <button className="text-xs text-primary-600 hover:underline">+{events.length - 3} more</button>
+          <button
+            className="text-xs text-primary-600 hover:underline"
+            onClick={(ev) => { ev.stopPropagation() }}
+            aria-label={`${events.length - 3} more events`}
+          >
+            +{events.length - 3} more
+          </button>
         )}
       </div>
     </div>
