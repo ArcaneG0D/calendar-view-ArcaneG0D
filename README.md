@@ -37,7 +37,7 @@ Developed as part of an **internship assignment** submission.
 2. **Add Event**
    - **Double-tap** on any empty date or cell to add an event.
 3. **Edit/Delete Event**
-   - Tap once on an existing event to edit or delete.
+   - Double-tap on on an existing event to edit or delete.
 4. **Navigation**
    - Use **Prev / Next** buttons to move through months or weeks.
 
